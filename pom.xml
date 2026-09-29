@@ -6,7 +6,7 @@
 
     <groupId>com.napier.devops</groupId>
     <artifactId>software-dev-methods-labs</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0.1</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -14,4 +14,43 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <!-- Lets Java connect to MySQL -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.18</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Fixed JAR name so the Dockerfile never needs changing -->
+        <finalName>app</finalName>
+        <plugins>
+            <!-- Builds one JAR with everything included -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.7.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.napier.devops.App</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

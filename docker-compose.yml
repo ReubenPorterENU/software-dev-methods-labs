@@ -1,0 +1,11 @@
+services:
+  # The Java app, built from the Dockerfile in the root folder
+  app:
+    build: .
+
+  # The database, built from the Dockerfile in the db folder
+  db:
+    build: db/.
+    restart: always
+    ports:
+      - "33060:3306"
